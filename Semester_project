@@ -1,0 +1,38 @@
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+enum TrafficState {
+    RED,
+    GREEN,
+    YELLOW
+};
+
+void manageTraffic() {
+    TrafficState currentState = RED;
+
+    while (true) {
+        switch (currentState) {
+            case RED:
+                std::cout << "Red light - stop!" << std::endl;
+                std::this_thread::sleep_for(std::chrono::seconds(5));
+                currentState = GREEN;
+                break;
+            case GREEN:
+                std::cout << "Green light - go!" << std::endl;
+                std::this_thread::sleep_for(std::chrono::seconds(10));
+                currentState = YELLOW;
+                break;
+            case YELLOW:
+                std::cout << "Yellow light - prepare to stop!" << std::endl;
+                std::this_thread::sleep_for(std::chrono::seconds(2));
+                currentState = RED;
+                break;
+        }
+    }
+}
+
+int main() {
+    manageTraffic();
+    return 0;
+}
